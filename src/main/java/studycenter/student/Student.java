@@ -1,6 +1,6 @@
-package StudyCenter.Student;
+package studycenter.student;
 
-import StudyCenter.Student.Score.ScoreBook;
+import studycenter.student.score.ScoreBook;
 
 public class Student {
     private static int academicDayDuration = 8;

@@ -1,6 +1,6 @@
-package StudyCenter.Student.Score;
+package studycenter.student.score;
 
-import StudyCenter.StudyProgram.Topic;
+import studycenter.studyprogram.Topic;
 
 import java.util.Date;
 

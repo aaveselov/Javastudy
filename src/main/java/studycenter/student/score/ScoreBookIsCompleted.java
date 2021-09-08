@@ -1,4 +1,4 @@
-package StudyCenter.Student.Score;
+package studycenter.student.score;
 
 /**
  * determines if course completed

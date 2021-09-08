@@ -1,7 +1,7 @@
-package StudyCenter.Student.Score;
+package studycenter.student.score;
 
 
-import StudyCenter.Utils.DataValidation.IllegalInitialDataException;
+import studycenter.validation.IllegalInitialDataException;
 
 /**
  *     mark must be in range 1-100

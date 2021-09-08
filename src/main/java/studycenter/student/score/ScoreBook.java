@@ -1,6 +1,6 @@
-package StudyCenter.Student.Score;
+package studycenter.student.score;
 
-import StudyCenter.StudyProgram.Course;
+import studycenter.studyprogram.Course;
 
 import java.util.Vector;
 

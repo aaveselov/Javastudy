@@ -20,6 +20,5 @@
             <artifactId>snakeyaml</artifactId>
             <version>1.29</version>
         </dependency>
-
     </dependencies>
 </project>

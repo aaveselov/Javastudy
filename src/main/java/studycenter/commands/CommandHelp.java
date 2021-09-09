@@ -7,15 +7,11 @@ import java.util.Vector;
 
 public class CommandHelp implements Command {
     private Collection<Command> commands = new Vector<>();
-    CommandHelp(Collection<Command> commands ) {
+    CommandHelp() {
         this.commands = commands;
     }
     @Override public void execute() {
-        System.out.println("commands usage:");
-        for ( Command command : commands ) {
-            System.out.println( "\t" + command.describeCorrectUsage() );
-        }
-        System.out.println("commands usage end.");
+        CommandFactory.describeAllCommands();
     }
 
     @Override public void init(String[] arguments) throws ILLegalCommandException {
@@ -23,6 +19,10 @@ public class CommandHelp implements Command {
     }
 
     @Override public String describeCorrectUsage() {
-        return "help \t\t\t- will print all commands and its syntax";
+        return name() + "\t\t\t- will print all commands and its syntax";
+    }
+
+    @Override public String name() {
+        return "help";
     }
 }

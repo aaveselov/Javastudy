@@ -1,4 +1,4 @@
-package studycenter.student.score;
+package studycenter.score;
 
 import studycenter.studyprogram.Course;
 
@@ -11,7 +11,7 @@ public class ScoreBook {
     Vector<TopicTestScore> testScoreVector;
     int currentTopic;
 
-    ScoreBook(Course course ) {
+    public ScoreBook(Course course ) {
         currentTopic = 0;
         //init testScoreVector
     }

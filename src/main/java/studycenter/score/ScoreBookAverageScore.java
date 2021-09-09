@@ -1,4 +1,4 @@
-package studycenter.student.score;
+package studycenter.score;
 
 /** determines average mark
  *

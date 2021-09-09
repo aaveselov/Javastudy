@@ -15,6 +15,10 @@ public class CommandStudentList implements Command {
     }
 
     @Override public String describeCorrectUsage() {
-        return  "student-list  \t\t\t- lists all studied students";
+        return  name() + "\t\t\t- lists all studied students";
+    }
+
+    @Override public String name() {
+        return "student-list";
     }
 }

@@ -7,12 +7,12 @@ package studycenter;
 // https://www.baeldung.com/java-snake-yaml
 
 import org.yaml.snakeyaml.TypeDescription;
-import studycenter.commands.CommandExecutor;
-import studycenter.student.Student;
-import studycenter.studyprogram.Course;
-import studycenter.studyprogram.Topic;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
+import studycenter.commands.CommandExecutor;
+import studycenter.score.ScoreBook;
+import studycenter.studyprogram.Course;
+import studycenter.studyprogram.Topic;
 import studycenter.validation.ILLegalCommandException;
 import studycenter.validation.IllegalInitialDataException;
 
@@ -23,11 +23,15 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import static java.lang.System.*;
+import static java.lang.System.out;
 
+/**
+ * contains students, courses and scorebooks
+ */
 public class StudyCenter {
     private static final Map<String, Student> studentMap = new HashMap<>();
-    private static final Map<String,Course> coursesMap = new HashMap<>();
+    private static final Map<String, Course> coursesMap = new HashMap<>();
+    private static final Map<Student, ScoreBook> studentScoreBooks = new HashMap<>();
 
     public static void main(String[] args) {
         initCourses();
@@ -35,28 +39,29 @@ public class StudyCenter {
         commandListener.listen();
     }
 
-    public static void addStudent( String studentName ) throws ILLegalCommandException {
-        if ( studentMap.containsKey(studentName) ) {
-            throw new ILLegalCommandException("Error: student " + studentName + " already study here");
+    public static void addStudent(String studentName) throws ILLegalCommandException {
+        if (studentMap.containsKey(studentName)) {
+            throw new ILLegalCommandException("addStudent " + studentName + " already study here");
         }
         studentMap.put(studentName, new Student(studentName));
     }
 
-    public static void removeStudent( String studentName ) throws IllegalInitialDataException {
-        if ( !studentMap.containsKey(studentName) ) {
-            throw new ILLegalCommandException("Error: student " + studentName + " does not study here");
+    public static void removeStudent(String studentName) throws IllegalInitialDataException {
+        if (!studentMap.containsKey(studentName)) {
+            throw new ILLegalCommandException("removeStudent " + studentName + " does not study here");
         }
         studentMap.remove(studentName);
     }
 
     public static void listStudents() {
-        listStudents( studentMap.values().stream() );
-    }
-    public static void listStudents(Comparator<Student> comparator, Predicate<Student> filter ) {
-        listStudents( studentMap.values().stream().filter(filter).sorted(comparator));
+        listStudents(studentMap.values().stream());
     }
 
-    private static void listStudents( Stream<Student> studentStream ) {
+    public static void listStudents(Comparator<Student> comparator, Predicate<Student> filter) {
+        listStudents(studentMap.values().stream().filter(filter).sorted(comparator));
+    }
+
+    private static void listStudents(Stream<Student> studentStream) {
         studentStream.forEach(out::println);
     }
 
@@ -73,13 +78,34 @@ public class StudyCenter {
 
 
         for (Object object : yaml.loadAll(inputStream)) {
-            if ( object.getClass() == Course.class ) {
+            if (object.getClass() == Course.class) {
                 Course course = (Course) object;
-                coursesMap.put( course.getName(), course );
+                coursesMap.put(course.getName(), course);
             } else {
-                throw new IllegalInitialDataException("wrong course description" + object );
+                throw new IllegalInitialDataException("wrong course description" + object);
             }
         }
         out.println(coursesMap);
+    }
+
+    public static void assignStudentToCourse(String studentName, String courseName) {
+        if (!studentMap.containsKey(studentName)) {
+            throw new ILLegalCommandException("assignStudentToCourse: " + studentName + " does not study here");
+        }
+        if (!coursesMap.containsKey(courseName)) {
+            throw new ILLegalCommandException("assignStudentToCourse: " + courseName + " does not held here");
+        }
+        Student student = studentMap.get(studentName);
+        if (studentScoreBooks.containsKey(student)) {
+            throw new ILLegalCommandException("assignStudentToCourse: student " + student
+                                                      + "attend course " + studentScoreBooks.get(student)
+                                                      + ". Can't be moved to course " + courseName);
+        }
+        if (coursesMap.containsKey(courseName)) {
+            throw new ILLegalCommandException("assignStudentToCourse: course " + courseName
+                                                      + " does not exist in StudyCenter");
+        }
+        Course course = coursesMap.get(courseName);
+        studentScoreBooks.put(student, new ScoreBook(course));
     }
 }

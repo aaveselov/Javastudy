@@ -7,6 +7,7 @@ import studycenter.commands.students_compare.StudentsCompare;
 import studycenter.commands.students_filter.StudentsFilter;
 import studycenter.validation.ILLegalCommandException;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -49,12 +50,8 @@ public class CommandStudentList implements Command {
     }
 
     String all;
-    Vector<StudentsCompare> comparators;
-    Vector<StudentsFilter> filters;
-
-    private static void listStudents(Stream<Student> studentStream) {
-        studentStream.forEach(out::println);
-    }
+    Vector<StudentsCompare> comparators = new Vector<>();
+    Vector<StudentsFilter> filters = new Vector<>();
 
     @Override public void init(String[] arguments) throws ILLegalCommandException {
         //choose needed comparators and filters
@@ -70,7 +67,11 @@ public class CommandStudentList implements Command {
     }
 
     @Override public void execute() {
-        listStudents(StudyCenter.getStudents());
+        Stream<Student> studentsStream = StudyCenter.getStudents();
+        for ( StudentsCompare compare : comparators ) {
+            studentsStream = studentsStream.sorted((Comparator<? super Student>) compare);
+        }
+        studentsStream.forEach(out::println);
     }
 
     @Override public String describeCorrectUsage() {

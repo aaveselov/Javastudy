@@ -1,4 +1,4 @@
-package studycenter.commands.StudentsCompare;
+package studycenter.commands.students_compare;
 
 import studycenter.Student;
 import studycenter.StudyCenter;
@@ -6,7 +6,9 @@ import studycenter.score.ScoreBook;
 
 import java.util.Comparator;
 
-class StudentsCompareByScore implements StudentsCompare, Comparator<Student> {
+public class StudentsCompareByScore implements StudentsCompare, Comparator<Student> {
+    public StudentsCompareByScore() {}
+
     @Override public int compare(Student student, Student t1) {
         ScoreBook scoreBook = StudyCenter.getScoreBook(student);
         ScoreBook scoreBook1 = StudyCenter.getScoreBook(t1);

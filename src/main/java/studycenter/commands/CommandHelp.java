@@ -6,9 +6,8 @@ import java.util.Collection;
 import java.util.Vector;
 
 public class CommandHelp implements Command {
-    private Collection<Command> commands = new Vector<>();
     CommandHelp() {
-        this.commands = commands;
+
     }
     @Override public void execute() {
         CommandFactory.describeAllCommands();

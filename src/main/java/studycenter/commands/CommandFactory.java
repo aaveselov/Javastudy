@@ -14,7 +14,7 @@ public class CommandFactory {
 
     static {
         ClassLoader classLoader = CommandFactory.class.getClassLoader();
-        Reflections reflections = new Reflections(Command.class.getCanonicalName());
+        Reflections reflections = new Reflections("studycenter");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
         for (Class<? extends Command> aClass : classes) {
             try {

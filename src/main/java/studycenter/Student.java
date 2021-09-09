@@ -31,4 +31,8 @@ public class Student {
     @Override public int hashCode() {
         return Objects.hash(name);
     }
+
+    public String getName() {
+        return name;
+    }
 }

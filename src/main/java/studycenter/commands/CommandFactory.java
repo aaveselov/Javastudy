@@ -1,6 +1,7 @@
 package studycenter.commands;
 
 import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,9 +13,8 @@ public class CommandFactory {
     private static final Map<String, Command> namedCommands = new HashMap<>();
 
     static {
-        //TODO scan for Command ancessor and populate list
         ClassLoader classLoader = CommandFactory.class.getClassLoader();
-        Reflections reflections = new Reflections("studycenter.commands");
+        Reflections reflections = new Reflections(Command.class.getCanonicalName());
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
         for (Class<? extends Command> aClass : classes) {
             try {

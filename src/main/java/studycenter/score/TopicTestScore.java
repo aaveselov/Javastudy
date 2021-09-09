@@ -9,4 +9,8 @@ public class TopicTestScore {
     private Boolean taken;
     private Score mark;
     private Date date;
+
+    public Score getMark() {
+        return mark;
+    }
 }

@@ -17,10 +17,9 @@ import studycenter.validation.ILLegalCommandException;
 import studycenter.validation.IllegalInitialDataException;
 
 import java.io.InputStream;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Predicate;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import static java.lang.System.out;
@@ -31,7 +30,7 @@ import static java.lang.System.out;
 public class StudyCenter {
     private static final Map<String, Student> studentMap = new HashMap<>();
     private static final Map<String, Course> coursesMap = new HashMap<>();
-    private static final Map<Student, ScoreBook> studentScoreBooks = new HashMap<>();
+    private static final Map<Student, ScoreBook> scoreBooks = new HashMap<>();
 
     public static void main(String[] args) {
         initCourses();
@@ -53,16 +52,12 @@ public class StudyCenter {
         studentMap.remove(studentName);
     }
 
-    public static void listStudents() {
-        listStudents(studentMap.values().stream());
+    public static Stream<Student> getStudents() {
+        return studentMap.values().stream();
     }
 
-    public static void listStudents(Comparator<Student> comparator, Predicate<Student> filter) {
-        listStudents(studentMap.values().stream().filter(filter).sorted(comparator));
-    }
-
-    private static void listStudents(Stream<Student> studentStream) {
-        studentStream.forEach(out::println);
+    public static ScoreBook getScoreBook(Student student ) {
+        return  scoreBooks.get(student);
     }
 
     private static void initCourses() {
@@ -96,9 +91,9 @@ public class StudyCenter {
             throw new ILLegalCommandException("assignStudentToCourse: " + courseName + " does not held here");
         }
         Student student = studentMap.get(studentName);
-        if (studentScoreBooks.containsKey(student)) {
+        if (scoreBooks.containsKey(student)) {
             throw new ILLegalCommandException("assignStudentToCourse: student " + student
-                                                      + "attend course " + studentScoreBooks.get(student)
+                                                      + "attend course " + scoreBooks.get(student)
                                                       + ". Can't be moved to course " + courseName);
         }
         if (coursesMap.containsKey(courseName)) {
@@ -106,6 +101,6 @@ public class StudyCenter {
                                                       + " does not exist in StudyCenter");
         }
         Course course = coursesMap.get(courseName);
-        studentScoreBooks.put(student, new ScoreBook(course));
+        scoreBooks.put(student, new ScoreBook(course));
     }
 }

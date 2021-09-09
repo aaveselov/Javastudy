@@ -1,5 +1,9 @@
 package studycenter.commands.students_compare;
 
-public interface StudentsCompare {
+import studycenter.Student;
+
+import java.util.Comparator;
+
+public interface StudentsCompare extends Comparator<Student> {
     String getName();
 }

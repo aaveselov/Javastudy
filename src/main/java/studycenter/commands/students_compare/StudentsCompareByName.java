@@ -5,7 +5,7 @@ import studycenter.Student;
 import java.util.Comparator;
 
 
-public class StudentsCompareByName implements StudentsCompare, Comparator<Student> {
+public class StudentsCompareByName implements StudentsCompare {
     public StudentsCompareByName() {}
 
     @Override public int compare(Student student, Student t1) {

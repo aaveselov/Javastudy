@@ -1,5 +1,9 @@
 package studycenter.commands.students_filter;
 
-public interface StudentsFilter {
+import studycenter.Student;
+
+import java.util.function.Predicate;
+
+public interface StudentsFilter extends Predicate<Student> {
     String getName();
 }

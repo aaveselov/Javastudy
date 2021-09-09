@@ -1,11 +1,11 @@
-name: "computer science"
+name: "CS"
 topics:
     - { name: "introduction", duration: 12 }
     - { name: "Algorithms", duration: 4 }
     - { name: "Containers", duration: 5 }
     - { name: "computation complexity", duration: 8 }
 ---
-name: "applied math"
+name: "AM"
 topics:
     - { name: "introduction", duration: 12 }
     - {name: "vectors", duration: 5}

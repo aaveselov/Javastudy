@@ -1,19 +1,17 @@
 package studycenter.commands;
 
 import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class CommandFactory {
+public class Factory {
     private static final Map<String, Command> namedCommands = new HashMap<>();
 
     static {
-        ClassLoader classLoader = CommandFactory.class.getClassLoader();
+        ClassLoader classLoader = Factory.class.getClassLoader();
         Reflections reflections = new Reflections("studycenter");
         Set<Class<? extends Command>> classes = reflections.getSubTypesOf(Command.class);
         for (Class<? extends Command> aClass : classes) {
@@ -42,7 +40,6 @@ public class CommandFactory {
 
         Command createdCommand = namedCommands.getOrDefault(commandName, new CommandHelp());
         createdCommand.init(commandArguments);
-
         return createdCommand;
     }
 }

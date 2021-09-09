@@ -5,17 +5,20 @@ import studycenter.Student;
 import studycenter.StudyCenter;
 import studycenter.commands.students_compare.StudentsCompare;
 import studycenter.commands.students_filter.StudentsFilter;
+import studycenter.score.ScoreBook;
 import studycenter.validation.ILLegalCommandException;
 
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.Vector;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import static java.lang.System.out;
-
+//TODO add save to .txt
 public class CommandStudentList implements Command {
     private static final Map<String, StudentsCompare> supportedComparators = new HashMap<>();
     private static final Map<String, StudentsFilter> supportedFilters = new HashMap<>();
@@ -49,11 +52,12 @@ public class CommandStudentList implements Command {
         }
     }
 
-    String all;
-    Vector<StudentsCompare> comparators = new Vector<>();
-    Vector<StudentsFilter> filters = new Vector<>();
+    Vector<StudentsCompare> comparators;
+    Vector<StudentsFilter> filters;
 
     @Override public void init(String[] arguments) throws ILLegalCommandException {
+        comparators = new Vector<>();
+        filters = new Vector<>();
         //choose needed comparators and filters
         for (String argument : arguments) {
             if (supportedComparators.containsKey(argument)) {
@@ -66,12 +70,20 @@ public class CommandStudentList implements Command {
         }
     }
 
-    @Override public void execute() {
+    @Override public Optional<Integer> execute() {
         Stream<Student> studentsStream = StudyCenter.getStudents();
+        for ( StudentsFilter filter : filters ) {
+            studentsStream = studentsStream.filter((Predicate<? super Student>) filter );
+        }
         for ( StudentsCompare compare : comparators ) {
             studentsStream = studentsStream.sorted((Comparator<? super Student>) compare);
         }
-        studentsStream.forEach(out::println);
+        studentsStream.forEach( student -> {
+            out.println(student);
+            ScoreBook scoreBook = StudyCenter.getScoreBook(student);
+            out. println(scoreBook);
+        });
+        return Optional.empty();
     }
 
     @Override public String describeCorrectUsage() {

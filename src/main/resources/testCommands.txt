@@ -1,0 +1,20 @@
+student-add Veselov
+student-add Smarty
+student-add looser
+
+student-assign-to-course Veselov CS
+student-assign-to-course Smarty CS
+student-assign-to-course looser CS
+
+student-pass-test Veselov 80
+student-pass-test Veselov 90
+
+student-pass-test Smarty 100
+student-pass-test Smarty 100
+
+student-pass-test looser 50
+student-pass-test looser 10
+
+student-list sortByPossibleScore
+student-list filterCanPass
+student-list sortByName

@@ -13,12 +13,6 @@ public class Student {
         this.name = name;
     }
 
-    @Override public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                '}';
-    }
-
     @Override public boolean equals(Object o) {
         if (this == o)
             return true;
@@ -34,5 +28,11 @@ public class Student {
 
     public String getName() {
         return name;
+    }
+
+    @Override public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 public class CommandExit implements Command {
     @Override public Optional<Integer> execute() {
+        System.out.println( "exit application");
         return Optional.of(0);
     }
 

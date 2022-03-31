@@ -1,0 +1,9 @@
+
+M
+java:S1481"0Remove this unused "classLoader" local variable.(×õ¬Ÿ8•áûË¼/
+U	java:S106"9Replace this use of System.out or System.err by a logger.(Ó®ª”8™áûË¼/
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(œÛŠ•ÿÿÿÿÿ8›áûË¼/
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(õäÖÊüÿÿÿÿ8œáûË¼/
+Z	java:S106!"9Replace this use of System.out or System.err by a logger.(˜İã·üÿÿÿÿ8áûË¼/
+T
+java:S1135$"2Complete the task associated to this TODO comment.(¡ˆ—šúÿÿÿÿ8”°‡ğ¾/

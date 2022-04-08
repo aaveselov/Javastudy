@@ -27,6 +27,7 @@ import static java.lang.System.out;
 /**
  * contains students, courses and scorebooks
  */
+
 public class StudyCenter {
     private static final Map<String, Student> studentMap = new HashMap<>();
     private static final Map<String, Course> coursesMap = new HashMap<>();
